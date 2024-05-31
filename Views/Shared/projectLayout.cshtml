@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/diplom.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="C:\Users\xbox0\Desktop\diplom\diplom\wwwroot\css\site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
     <div class="container">
         <header class="header">
             <div class="topBars">
                 <div class="courses">
-                    <a href="">Available courses</a>
+                    <a asp-controller="Course" asp-action="">Available courses</a>
                 </div>
                 <div id="accountLogIn">
                     <a asp-controller="Auth" asp-action="Authorization">Log In</a>
