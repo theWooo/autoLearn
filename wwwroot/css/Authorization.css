@@ -1,0 +1,29 @@
+﻿.authContainer {
+    display:flex;
+    background-color: #135D66;
+    min-height:inherit;
+    min-width:inherit;
+}
+.authFormDiv {
+    background-color:#77B0AA;
+    flex-direction: column;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    border-radius: 10px;
+    padding:10px;
+}
+.authFormDiv input {
+    display: flex;
+    background-color: #E3FEF7;
+    border:unset;
+    margin-bottom:10px;
+    border-radius:5px;
+}
+.authForm {
+    margin:auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
