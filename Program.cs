@@ -9,7 +9,7 @@ namespace diplom
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddSession();
+            builder.Services.AddSession();                                  //---ADDED
 
             var app = builder.Build();
             
@@ -28,7 +28,7 @@ namespace diplom
 
             app.UseAuthorization();
 
-            app.UseSession();
+            app.UseSession();                                               //---ADDED
 
             app.MapControllerRoute(
                 name: "default",

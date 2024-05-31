@@ -1,7 +1,7 @@
 ﻿.authContainer {
     display:flex;
     background-color: #135D66;
-    min-height:inherit;
+    min-height:90vh;
     min-width:inherit;
 }
 .authFormDiv {

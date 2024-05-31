@@ -1,6 +1,5 @@
 * {
-position:relative;
-font-family
+position: relative;
 }
 
 @media (min-width: 768px) {
@@ -21,7 +20,7 @@ html {
 body {
   margin:0;
   padding:0;
-  min-height:90vh;
+  min-height:100vh;
   
 }
 header {
@@ -45,10 +44,21 @@ header {
     min-width: 100%;
     align-items: center;
 }
-.topBars>div{
-    margin-left:5%;
+.topBars > div {
+    margin-left: 5%;
+    background-color: #135D66;
+    padding:5px;
+    border-radius:5px;
+    
 }
 #accountLogIn {
     margin:auto;
     margin-right:5%;
+}
+a {
+    text-decoration: none;
+    color:white;
+}
+a:hover {
+    color:orange;
 }
