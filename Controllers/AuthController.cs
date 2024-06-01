@@ -10,6 +10,10 @@ namespace diplom.Controllers {
         public IActionResult Authorization() {
             return View();
         }
+        [HttpPost]
+        public IActionResult Authorization(AuthorizationData data) {
+            return View();
+        }
         public IActionResult Register() {
 
             return View();
@@ -21,12 +25,12 @@ namespace diplom.Controllers {
 
             //}
 
-            if (!container.validator.isPassordValid(data.password)) {
-                ModelState.AddModelError("invPassword", "Некорректный пароль");
-            }
-            if (await container.validator.isEmailValid(data.email)) { 
-            
-            }
+           if (!container.validator.isPassordValid(data.password)) {
+               ModelState.AddModelError("invPassword", "Некорректный пароль");
+           }
+           if (await container.validator.isEmailTaken(data.email)) { 
+           
+           }
             return View();
         }
         //[HttpPost]

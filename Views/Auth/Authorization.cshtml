@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model AuthorizationData
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -10,11 +11,12 @@
     <div class="authContainer">
         <form class="authForm" asp-controller="Auth" asp-action="Authorization" method="post">
             <div class="authFormDiv">
-                <input class="email" type="text" placeholder="Введите email"></input>
-                <input class="password" type="password" placeholder="Введите пароль"></input>
+                <input asp-for="email" class="email" type="text" placeholder="Введите email"></input>
+                <input asp-for="password" class="password" type="password" placeholder="Введите пароль"></input>
                 <input type="submit" value="Отправить"/>
                 <a asp-action="Register" asp-controller="Auth">Зарегистрироваться</a>
             </div>
+            @Html.ValidationSummary(false, "", new { @style = "color:orange" })
         </form>
     </div>
 </body>
