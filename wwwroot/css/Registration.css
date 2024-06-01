@@ -1,0 +1,23 @@
+﻿.registrationContainer {
+    min-height:90vh;
+    background-color:#135D66;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.registrationDiv {
+    display:flex;
+    flex-direction:column;
+    background-color: #135D66;
+    align-items: center;
+    justify-content: center;
+    background-color: #77B0AA;
+    padding:10px;
+    border-radius:10px
+}
+.registrationDiv > input {
+    border-radius:5px;
+    border:unset;
+    margin-bottom:5px;
+    background-color:#E3FEF7;
+}

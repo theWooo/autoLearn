@@ -3,9 +3,21 @@
 namespace diplom.Models {
     
     public class DI {
-        public static SqlConnection dbConnection;
-        public DI(string pathToFileContainingConnectionString)
+        private static DI container;
+        public static DI getDiContainer(string pathToFileContainingConnectionString = "") {
+            if (container == null) {
+                container = new DI(pathToFileContainingConnectionString);
+                return container;
+            }
+            else {
+                return container;
+            }
+        }
+        public SqlConnection dbConnection;
+        public Validator validator;
+        private DI(string pathToFileContainingConnectionString)
         {
+            validator = new Validator();
             if (!File.Exists(pathToFileContainingConnectionString)) {
                 throw new FileNotFoundException();
             }
