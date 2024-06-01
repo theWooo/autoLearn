@@ -15,6 +15,7 @@ namespace diplom.Controllers
 
         public IActionResult Index()
         {
+            DI.getDiContainer("");
             return View();
         }
 

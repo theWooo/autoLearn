@@ -15,15 +15,17 @@ namespace diplom.Controllers {
             return View();
         }
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public IActionResult Register([Bind(include: "login,password,email,secretQuestion,answerToTheSecretQuestion")] RegistrationData data) {
+        public async Task<IActionResult> Register(RegistrationData data) {
 
             //if (DI.dbConnection) { 
 
             //}
 
-            if (!isPasswordValid()) {
+            if (!container.validator.isPassordValid(data.password)) {
                 ModelState.AddModelError("invPassword", "Некорректный пароль");
+            }
+            if (await container.validator.isEmailValid(data.email)) { 
+            
             }
             return View();
         }

@@ -1,5 +1,4 @@
 ﻿@model RegistrationData
-@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +19,8 @@
                 <input asp-for="answerToTheSecretQuestion" placeholder="Ответ на вопрос"></input>
                 <input type="submit" value="Зарегистрироваться">
             </div>
-            @Html.ValidationSummary(false,"",new{@style="color:orange"})
         </form>
+        @Html.ValidationSummary(false,"",new{@style="color:orange"})
     </div>
 </body>
 </html>

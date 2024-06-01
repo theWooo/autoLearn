@@ -14,12 +14,16 @@ namespace diplom
             if (password.Length < minPasswordLength) { return false; }
             return true;
         }
-        public bool isEmailValid(string email) {
-            return emailRegex.IsMatch(email);
+        public async Task<bool> isEmailValid(string email) {
+            bool adCallResult = await Task<bool>.Factory.StartNew(isEmailTaken, email as object); // mb problem here
+            return emailRegex.IsMatch(email) && adCallResult;
         }
-        public bool isEmailTaken(string email) {
+        private bool isEmailTaken(object email) {
+            string castedEmail = (string)(email);
             //TODO - ask db if this email is present there if it is then ret false otherwise ret true;
             throw new NotImplementedException();
+            return false;
         }
+
     }
 }
