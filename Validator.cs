@@ -1,5 +1,6 @@
 ﻿using diplom.Models;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Text.RegularExpressions;
 namespace diplom
 {
@@ -16,9 +17,16 @@ namespace diplom
         }
         public async Task<bool> isEmailTaken(object email) {
             string castedEmail = (string)(email);
+            SqlCommand command = new SqlCommand(
+                $"SELECT COUNT(EMAIL) FROM STUDENT WHERE EMAIL = '{castedEmail}'"
+                , DI.getDiContainer().dbConnection);
+            object? res = await command.ExecuteScalarAsync();
+            
+            if ((int)res! > 0) {
+                return false;
+            }
             //TODO - ask db if this email is present there if it is then ret false otherwise ret true;
-            throw new NotImplementedException();
-            return false;
+            return true;
         }
 
         //public async Task<bool> isEmailValid(string email) {

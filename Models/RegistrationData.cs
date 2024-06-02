@@ -15,6 +15,7 @@ namespace diplom.Models {
         //[RegularExpression(@"^([a-z]|[A-Z]|[0-9])+\@[a-z]+\.[a-z]+$", ErrorMessage = "Недействительный адрес почты")]
         [Required(ErrorMessage = "Поле почты не может быть пустым")]
         [EmailAddress(ErrorMessage = "Недействительный адрес почты")]
+        [MaxLength(255, ErrorMessage = "Почта не может быть больше 255 символов")]
         public string email { get; set; }
         [Required(ErrorMessage = "Поле вопроса не может быть пустым")]
         public string secretQuestion { get; set; }

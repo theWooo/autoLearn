@@ -15,7 +15,7 @@ namespace diplom.Controllers
 
         public IActionResult Index()
         {
-            DI.getDiContainer();
+            DI.getDiContainer();//PASTE CONNECTION STRING HERE
             return View();
         }
 
