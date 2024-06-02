@@ -24,6 +24,7 @@ namespace diplom.Models {
             StreamReader reader = new StreamReader(File.OpenRead(pathToFileContainingConnectionString));
             dbConnection = new SqlConnection(reader.ReadToEnd());
             reader.Close();
+            dbConnection.Open();
         }
 
     }

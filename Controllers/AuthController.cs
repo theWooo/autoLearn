@@ -21,16 +21,14 @@ namespace diplom.Controllers {
         [HttpPost]
         public async Task<IActionResult> Register(RegistrationData data) {
 
-            //if (DI.dbConnection) { 
+            
 
-            //}
-
-           if (!container.validator.isPassordValid(data.password)) {
-               ModelState.AddModelError("invPassword", "Некорректный пароль");
-           }
-           if (await container.validator.isEmailTaken(data.email)) { 
-           
-           }
+            if (!container.validator.isPassordValid(data.password)) {
+                ModelState.AddModelError("invPassword", "Некорректный пароль");
+            }
+            if (await container.validator.isEmailTaken(data.email)) { 
+            
+            }
             return View();
         }
         //[HttpPost]

@@ -3,8 +3,8 @@
 namespace diplom.Controllers {
     public class CourseController : Controller {
         public IActionResult Index() {
-            byte[]? token;
-            if (HttpContext.Session.TryGetValue("token", out token) == null) { 
+            byte[]? jwttoken;
+            if (HttpContext.Session.TryGetValue("jwtToken", out jwttoken) == null) { 
             
             }
             return View();
