@@ -1,4 +1,5 @@
 ﻿using diplom.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text.RegularExpressions;
@@ -7,7 +8,7 @@ namespace diplom
     public class Validator
     {
         private static Regex emailRegex = new Regex(@"^([a-z]|[A-Z]|[0-9])+\@[a-z]+\.[a-z]+$");
-        public bool isPassordValid(string password, bool isUppercaseRequired=true, bool isSymbolRequired = true, bool isNumberRequired = true, int minPasswordLength = 8) {
+        private bool isPasswordValid(string password, bool isUppercaseRequired=true, bool isSymbolRequired = true, bool isNumberRequired = true, int minPasswordLength = 8) {
             if (string.IsNullOrEmpty(password)) { return false; }
             if (isUppercaseRequired && !password.Any(it => char.IsUpper(it))) { return false; }
             if (isSymbolRequired && !password.Any(it => char.IsSymbol(it))) { return false; }
@@ -15,18 +16,25 @@ namespace diplom
             if (password.Length < minPasswordLength) { return false; }
             return true;
         }
-        public async Task<bool> isEmailTaken(object email) {
-            string castedEmail = (string)(email);
-            SqlCommand command = new SqlCommand(
-                $"SELECT COUNT(EMAIL) FROM STUDENT WHERE EMAIL = '{castedEmail}'"
-                , DI.getDiContainer().dbConnection);
-            object? res = await command.ExecuteScalarAsync();
-            
-            if ((int)res! > 0) {
+        public async Task<bool> isRegistrationDataValid(RegistrationData data, ModelStateDictionary errors) {
+            if (!isPasswordValid(data.password)) {
+                errors.AddModelError("invPassword","Пароль некорректен");
                 return false;
             }
-            //TODO - ask db if this email is present there if it is then ret false otherwise ret true;
+            if (await isEmailTaken(data.email)) {
+                errors.AddModelError("emailIsTaken", "Такой адрес почты уже используется");
+                return false;
+            }
             return true;
+        }
+        private async Task<bool> isEmailTaken(object email) {
+            string castedEmail = (string)(email);
+            int res = (int)await DI.getDiContainer().asyncExecuteScalar($"SELECT COUNT(EMAIL) FROM AUTH WHERE EMAIL = '{castedEmail}'");
+            if ((int)res! > 0) {
+                return true;
+            }
+            //TODO - ask db if this email is present there if it is then ret false otherwise ret true;
+            return false;
         }
 
         //public async Task<bool> isEmailValid(string email) {
