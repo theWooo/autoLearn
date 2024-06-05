@@ -15,7 +15,7 @@ namespace diplom.Controllers
 
         public IActionResult Index()
         {
-            DI.getDiContainer();
+            DI.getDiContainer("C:\\Users\\xbox0\\Desktop\\diplom\\autoLearn\\connectionString.txt");
             return View();
         }
 

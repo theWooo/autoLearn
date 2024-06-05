@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />    
@@ -17,7 +18,15 @@
                     <a asp-controller="Course" asp-action="">Available courses</a>
                 </div>
                 <div id="accountLogIn">
-                    <a asp-controller="Auth" asp-action="Authorization">Log In</a>
+                    @{
+                        if (!(HttpContextAccessor.HttpContext.Request.Cookies["token"] == "true"))
+                        {
+                            <a asp-controller="Auth" asp-action="Authorization">Log In</a>
+                        }
+                        else {
+                            <a asp-controller="Auth" asp-action="DeAuthorization">Log out</a>
+                        }
+                    }
                 </div>
             </div>
         </header>

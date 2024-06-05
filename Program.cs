@@ -1,4 +1,5 @@
 global using System.Diagnostics;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 namespace diplom
 {
     public class Program
@@ -10,7 +11,7 @@ namespace diplom
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddSession();                                  //---ADDED
-
+            builder.Services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             var app = builder.Build();
             
             // Configure the HTTP request pipeline.

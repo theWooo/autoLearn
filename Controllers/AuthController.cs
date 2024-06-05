@@ -1,5 +1,6 @@
 ﻿using diplom.Models;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Cryptography;
 using System.Text.Unicode;
@@ -9,14 +10,20 @@ namespace diplom.Controllers {
     public class AuthController : Controller {
         private DI container = DI.getDiContainer();
         public IActionResult Index() {
+            
             return View();
         }
         public IActionResult Authorization() {
+
             return View();
         }
         [HttpPost]
         public IActionResult Authorization(AuthorizationData data) {
             return View();
+        }
+        public IActionResult DeAuthorization() {
+            HttpContext.Response.Cookies.Delete("token");
+            return RedirectToAction("Index","Home");
         }
         public IActionResult Register() {
 
@@ -32,9 +39,14 @@ namespace diplom.Controllers {
                 await DI.getDiContainer().asyncExecuteNonQuery($"INSERT INTO secretQuestion (answerHash,question,authFK) VALUES ('{DI.getDiContainer().quickHash(data.answerToTheSecretQuestion)}','{data.secretQuestion}',{res})");
                 await DI.getDiContainer().asyncExecuteNonQuery($"INSERT INTO operator (operatorname,authfk) VALUES ('{data.login}',{res})");
             }
-            return View();
+            //Response.Cookies.Append("token", generateToken());
+            HttpContext.Response.Cookies.Append("token", "true");
+            return RedirectToAction("Index","Home");
         }
 
+        private string generateToken() {
+            throw new NotImplementedException();
+        }
         //[HttpPost]
         //public IActionResult Authorization(AuthorizationData data) { 
 
