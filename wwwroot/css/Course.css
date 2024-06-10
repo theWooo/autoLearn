@@ -1,4 +1,27 @@
 ﻿.courseContainer {
-min-height: 90vh;
-background-color: #135D66;
+    min-height: 90vh;
+    background-color: #135D66;
+    align-content: flex-start;
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.courseTiles {
+    overflow-x: visible;
+    min-width: 50px;
+    word-break: break-word;
+    max-width: 200px;
+    max-height: 100px;
+    padding: 10px;
+    margin: 5px;
+    background-color: #77B0AA;
+    overflow-y: auto;
+    border-radius: 10px;
+}
+
+.courseTile > a {
+    margin: 0;
+    padding: 0;
 }

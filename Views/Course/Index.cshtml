@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model CourseDTO
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +9,13 @@
 </head>
 <body>
     <div class="courseContainer">
-        
+        @{
+            foreach (string course in Model.courseNames) {
+                <div class="courseTiles">
+                    <a asp-controller="Course" asp-action="SelectedCourse" asp-route-courseName="@course">@course </a>
+                </div>
+            }
+        }
     </div>
 </body>
 </html>

@@ -1,4 +1,6 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@using diplom.Controllers
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,11 +21,13 @@
                 </div>
                 <div id="accountLogIn">
                     @{
-                        if (!(HttpContextAccessor.HttpContext.Request.Cookies["token"] == "true"))
+                        if (HttpContextAccessor.HttpContext.Request.Cookies["token"] == null)
                         {
-                            <a asp-controller="Auth" asp-action="Authorization">Log In</a>
+                            <a asp-controller="Auth" asp-action="Authorization">Log in</a>
                         }
                         else {
+                            var a = DI.getDiContainer().getTokenValues(HttpContextAccessor.HttpContext.Request.Cookies["token"]);
+                            <label>@a.First(it => it.Type == "unique_name").Value </label>
                             <a asp-controller="Auth" asp-action="DeAuthorization">Log out</a>
                         }
                     }

@@ -13,7 +13,7 @@
         <form asp-action="Register" asp-controller="Auth" method="post">
             <div class="registrationDiv">
                 <input asp-for="login" placeholder="Логин"></input>
-                <input asp-for="password" placeholder="Пароль"></input>
+                <input asp-for="password" placeholder="Пароль" type="password"></input>
                 <input asp-for="email" placeholder="Email"></input>
                 <input asp-for="secretQuestion" placeholder="Секретный вопрос"></input>
                 <input asp-for="answerToTheSecretQuestion" placeholder="Ответ на вопрос"></input>
