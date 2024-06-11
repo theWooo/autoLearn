@@ -9,11 +9,14 @@
 }
 
 .courseTiles {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
     overflow-x: visible;
     min-width: 50px;
     word-break: break-word;
     max-width: 200px;
-    max-height: 100px;
+    max-height: 200px;
     padding: 10px;
     margin: 5px;
     background-color: #77B0AA;
@@ -24,4 +27,9 @@
 .courseTile > a {
     margin: 0;
     padding: 0;
+}
+.imgContainer > img {
+    object-fit: contain;
+    max-width: 100px;
+
 }

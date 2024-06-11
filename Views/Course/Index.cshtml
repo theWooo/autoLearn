@@ -1,4 +1,4 @@
-﻿@model CourseDTO
+﻿@model CourseBatchDTO
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,9 +10,13 @@
 <body>
     <div class="courseContainer">
         @{
-            foreach (string course in Model.courseNames) {
+            foreach (Course course in Model.courses) {
                 <div class="courseTiles">
-                    <a asp-controller="Course" asp-action="SelectedCourse" asp-route-courseName="@course">@course </a>
+                    <a asp-controller="Course" asp-action="SelectedCourse" asp-route-courseName="@course.courseName">@course.courseName </a>
+                    <div class="imgContainer">
+                        <img src="@course.courseImageLink"/>
+                    </div>
+                    <label>@course.courseDescription</label>
                 </div>
             }
         }
