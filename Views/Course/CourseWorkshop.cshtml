@@ -12,14 +12,13 @@
         @{
             foreach (Course course in Model.courses) {
                 <div class="courseTile">
-                    <a asp-controller="Course" asp-action="SelectedCourse" asp-route-Course="@course.courseId">
-                        <div class="circle">
-                            <div class="plus">
-                                <div class="vertLine"></div>
-                                <div class="horLine"></div>
-                            </div>
+                        <a asp-controller="Course" asp-action="SelectedCourse" asp-route-courseName="@course.courseName">@course.courseName </a>
+                        <div class="imgContainer">
+                            <img src="@course.courseImageLink" />
                         </div>
-                    </a>
+                    <label>@course.courseDescription</label>
+                    <input></input>
+                    <input type="submit" value="Delete"/>
                 </div>
             }
         }

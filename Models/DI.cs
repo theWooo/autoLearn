@@ -11,16 +11,18 @@ namespace diplom.Models {
         private static DI container;
         private string decryptKey;
         public async Task<string> generateToken(AuthorizationData data) {
-            SqlDataReader reader = await asyncExecuteReader($"select operatorname from operator join auth on authfk=auth.id where email='{data.email}'");
+            SqlDataReader reader = await asyncExecuteReader($"select operator.id,operatorname from operator join auth on authfk=auth.id where email='{data.email}'");
             await reader.ReadAsync();
-            string userName = reader.GetValue(0) as string;
+            string id =((int)reader.GetValue(0)).ToString();
+            string userName = reader.GetValue(1) as string;
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
             byte[] byteKey = Encoding.ASCII.GetBytes(decryptKey);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(
                     new Claim[] {
                         new Claim(ClaimTypes.Name, userName),
-                        new Claim(ClaimTypes.Email, data.email)
+                        new Claim(ClaimTypes.Email, data.email),
+                        new Claim(ClaimTypes.Authentication, id)
                     }
                     ),
                 Expires = DateTime.UtcNow.AddDays(1000),
