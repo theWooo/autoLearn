@@ -1,0 +1,38 @@
+﻿@model CourseBatchDTO
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/CourseWorkshop.css" media="all" />
+</head>
+<body>
+    <div class="workshopContainer">
+        @{
+            foreach (Course course in Model.courses) {
+                <div class="courseTile">
+                    <a asp-controller="Course" asp-action="SelectedCourse" asp-route-Course="@course.courseId">
+                        <div class="circle">
+                            <div class="plus">
+                                <div class="vertLine"></div>
+                                <div class="horLine"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            }
+        }
+        <div class="courseTile">
+            <a asp-controller="Course" asp-action="CreateCourse">
+                <div class="circle">
+                    <div class="plus">
+                        <div class="vertLine"></div>
+                        <div class="horLine"></div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

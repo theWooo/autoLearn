@@ -10,15 +10,12 @@ namespace diplom.Models {
     public class DI {
         private static DI container;
         private string decryptKey;
-        public string getToken() {
-            return decryptKey;
-        }
         public async Task<string> generateToken(AuthorizationData data) {
             SqlDataReader reader = await asyncExecuteReader($"select operatorname from operator join auth on authfk=auth.id where email='{data.email}'");
             await reader.ReadAsync();
             string userName = reader.GetValue(0) as string;
             JwtSecurityTokenHandler handler = new JwtSecurityTokenHandler();
-            byte[] byteKey = Encoding.ASCII.GetBytes(DI.getDiContainer().getToken());
+            byte[] byteKey = Encoding.ASCII.GetBytes(decryptKey);
             SecurityTokenDescriptor descriptor = new SecurityTokenDescriptor {
                 Subject = new ClaimsIdentity(
                     new Claim[] {

@@ -1,0 +1,68 @@
+﻿.workshopContainer {
+    min-height: 90vh;
+    background-color: #135D66;
+    display: flex;
+
+}
+.courseTile {
+    margin:20px;
+    width: 200px;
+    height: 200px;
+    background-color: #77B0AA;
+    border-radius: 10px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+.circle {
+    width: 60px;
+    height: 60px;
+
+    background-color: #E3FEF7;
+    border-radius:50px;
+}
+.circle:hover {
+    animation-duration: 3s;
+    width: 60px;
+    height: 60px;
+    background-color: #81f8ec;
+    border-radius: 50px;
+    animation-name:hover;
+    animation-duration: 1s;
+
+}
+
+@keyframes hover {
+  25%,
+  50% {
+    scale: 200%;
+  }
+}
+.createTileContainer{
+    
+}
+.circle {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    
+}
+.horLine {
+
+    background-color: #135D66;
+    width: 5px;
+    height: 40px;
+    border-radius: 2px;
+}
+.vertLine {
+    background-color:#135D66 ;
+    width: 5px;
+    height: 40px;
+    border-radius: 2px;
+    transform: rotate(90deg);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
