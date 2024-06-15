@@ -7,5 +7,6 @@
         public string courseName { get; set; }
         public string courseDescription { get; set; }
         public string courseImageLink { get; set; }
+        public string courseImageData { get; set; }
     }
 }

@@ -36,6 +36,7 @@ header {
     min-width: 100%;
     margin: 0;
     padding: 0;
+
     min-height:inherit;
 }
 .topBars {
@@ -53,6 +54,7 @@ header {
     
 }
 #accountLogIn {
+
     margin:auto;
     margin-right:5%;
 }

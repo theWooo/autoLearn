@@ -1,0 +1,36 @@
+﻿.courseDataHeader {
+    background: rgb(0,60,67);
+    background: linear-gradient(180deg, rgba(0,60,67,1) 0%, rgba(19,93,102,1) 100%);
+    display: flex;
+    flex-flow: row wrap;
+    min-height: 10vh;
+    background-color: #003C43;
+    align-items: center;
+    justify-content: center;
+    /*    border-top: solid 1px #135D66*/
+}
+
+.container {
+    flex: 1 1 auto;
+    background-color: #135D66;
+}
+
+.courseDataHeader > textarea {
+    min-width:100px;
+    width: 15vw;
+    min-height: 10vh;
+    margin-left: 10px;
+    border-radius: 5px;
+    background: rgb(0,60,67);
+    background: linear-gradient(180deg, rgba(0,60,67,1) 0%, rgba(19,93,102,1) 100%);
+}
+
+.courseNameInput {
+    line-break: normal;
+}
+#div1 {
+    min-width: 100px;
+    width: 15vw;
+    min-height: 10vh;
+    margin-left: 10px;
+}
