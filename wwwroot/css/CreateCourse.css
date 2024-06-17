@@ -17,20 +17,54 @@
 
 .courseDataHeader > textarea {
     min-width:100px;
+    color: #E3E3E3;
     width: 15vw;
     min-height: 10vh;
     margin-left: 10px;
     border-radius: 5px;
-    background: rgb(0,60,67);
-    background: linear-gradient(180deg, rgba(0,60,67,1) 0%, rgba(19,93,102,1) 100%);
+    background:transparent;
+    /*background: rgb(0,60,67);
+    background: linear-gradient(180deg, rgba(0,60,67,1) 0%, rgba(19,93,102,1) 100%);*/
 }
 
 .courseNameInput {
     line-break: normal;
 }
 #div1 {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    border-radius:15px;
+    border:1px dashed #E3E3E3;
     min-width: 100px;
     width: 15vw;
     min-height: 10vh;
     margin-left: 10px;
+}
+#pictureSelectInput > label {
+    color: #E3E3E3;
+}
+
+.circle {
+    width: 60px;
+    height: 60px;
+    background-color: #E3FEF7;
+    border-radius:50px;
+}
+.circle:hover {
+    animation-duration: 3s;
+    width: 60px;
+    height: 60px;
+    background-color: #81f8ec;
+    border-radius: 50px;
+    animation-name:hover;
+    animation-duration: 1s;
+
+}
+
+@keyframes hover {
+  25%,
+  50% {
+    scale: 200%;
+  }
 }

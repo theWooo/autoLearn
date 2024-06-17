@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace diplom.Models {
     
     public class DI {
@@ -88,6 +89,12 @@ namespace diplom.Models {
             reader.Close();
             dbConnection.Open();
         }
-
+        public string getImageData(IFormFile data) {
+            MemoryStream pictureReaderStream = new MemoryStream();
+            data.OpenReadStream().CopyTo(pictureReaderStream);
+            byte[] fileBytes = pictureReaderStream.ToArray();
+            pictureReaderStream.Close();
+            return Convert.ToBase64String(fileBytes);
+        }
     }
 }

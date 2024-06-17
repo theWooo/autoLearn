@@ -1,6 +1,8 @@
-﻿namespace diplom.Models {
-    public class CourseDataDTO {
-        public Course courseHeaderData { get; set; }
+﻿using System.ComponentModel.DataAnnotations;
 
+namespace diplom.Models {
+    public class CourseDataDTO {
+        [Required]
+        public Course courseHeaderData { get; set; }
     }
 }

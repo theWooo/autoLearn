@@ -5,8 +5,9 @@
     public class Course {
         public int courseId { get; set; }
         public string courseName { get; set; }
-        public string courseDescription { get; set; }
-        public string courseImageLink { get; set; }
-        public string courseImageData { get; set; }
+        public string? courseDescription { get; set; }
+        public string? courseImageLink { get; set; }
+        public IFormFile? courseImageData { get; set; }
+        public string? courseImageDataString { get; set; }
     }
 }
