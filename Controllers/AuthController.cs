@@ -57,11 +57,5 @@ namespace diplom.Controllers {
             }
             return RedirectToAction("Index","Home");
         }
-        
-        
-        //[HttpPost]
-        //public IActionResult Authorization(AuthorizationData data) { 
-
-        //}
     }
 }

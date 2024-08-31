@@ -26,7 +26,6 @@ namespace diplom.Controllers {
             }
             CourseBatchDTO batch = new CourseBatchDTO();
             SqlDataReader reader = await DI.getDiContainer().asyncExecuteReader(@$"select courseName,courseDescription,courseImageLink,id,courseImage from course where creatoridfk = {DI.getDiContainer().getTokenValues(token).First(it => it.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/authentication").Value}");//find all of all the courses that the current user has created by id
-              //(TODO) above is a hack, this query has to be rewritten in a way in which it will utilize the designated creatoridfk field from the corresponding db table
             while (reader.Read()) {
                 batch.courses.Add(new Course { courseDescription=reader.GetValue(1) as string, courseImageLink=(reader.GetValue(2)) as string, courseName=reader.GetValue(0) as string,courseId = (int)reader.GetValue(3),courseImageDataString = reader.GetValue(4) as string });
             }
@@ -36,7 +35,7 @@ namespace diplom.Controllers {
             return View();
         }
         public IActionResult CreateCourse() {
-            return View();// RedirectToAction("Course", "CourseWorkshop");
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CourseDataDTO data) {
