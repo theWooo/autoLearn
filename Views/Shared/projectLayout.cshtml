@@ -24,13 +24,12 @@
                 </div>
                 <div id="accountLogIn">
                     @{
-                        if (HttpContextAccessor.HttpContext.Request.Cookies["token"] == null)
+                        if (!User.Identity.IsAuthenticated)
                         {
                             <a asp-controller="Auth" asp-action="Authorization">Log in</a>
                         }
                         else {
-                            var a = DI.getDiContainer().getTokenValues(HttpContextAccessor.HttpContext.Request.Cookies["token"]);
-                            <label>@a.First(it => it.Type == "unique_name").Value </label>
+                            <label>@User.Claims.First(it => it.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value </label>
                             <a asp-controller="Auth" asp-action="DeAuthorization">Log out</a>
                         }
                     }
