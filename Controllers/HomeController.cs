@@ -1,6 +1,7 @@
 using diplom.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net.Http.Headers;
 
 namespace diplom.Controllers
 {
@@ -13,12 +14,11 @@ namespace diplom.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             DI.getDiContainer("C:\\Users\\xbox0\\Desktop\\diplom\\autoLearn\\connectionString.txt");
             return View();
         }
-
         public IActionResult Privacy()
         {
             return View();

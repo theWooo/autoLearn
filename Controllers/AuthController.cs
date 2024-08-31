@@ -11,7 +11,8 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
-
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 namespace diplom.Controllers {
     public class AuthController : Controller {
         public IActionResult Index() {
@@ -23,22 +24,37 @@ namespace diplom.Controllers {
         }
         [HttpPost]
         public async Task<IActionResult> Authorization(AuthorizationData data) {
+            SqlDataReader reader = await DI.getDiContainer().asyncExecuteReader($"select operator.id,operatorname from operator join auth on authfk=auth.id where email='{data.email}'");
+            await reader.ReadAsync();
+            string id = ((int)reader.GetValue(0)).ToString();
+            string userName = reader.GetValue(1) as string;
             if (!ModelState.IsValid) {
                 return View();
             }
             SqlDataReader expectedUserData = await DI.getDiContainer().asyncExecuteReader($"SELECT * FROM Operator JOIN AUTH ON OPERATOR.authFK = AUTH.id WHERE passwordHash = '{DI.getDiContainer().quickHash(data.password)}' AND EMAIL = '{data.email}'");
-            if (expectedUserData.HasRows && ModelState.ErrorCount == 0) {
-                
-            }
-            else {
+
+            //-------------------------------------------DELETE (&& data.email != "asdf@sdf.aa") IN RELEASE ONLY FOR TESTING
+            //-------------------------------------------DELETE (&& data.email != "asdf@sdf.aa") IN RELEASE ONLY FOR TESTING
+            //-------------------------------------------DELETE (&& data.email != "asdf@sdf.aa") IN RELEASE ONLY FOR TESTING
+            if ((!expectedUserData.HasRows || ModelState.ErrorCount != 0)&& data.email != "asdf@sdf.aa") {
                 ModelState.AddModelError("invLoginCredentials", "Недействительные данные входа");
                 return View();
             }
-            HttpContext.Response.Cookies.Append("token",await DI.getDiContainer().generateToken(data));
+            //-------------------------------------------DELETE (&& data.email != "asdf@sdf.aa") IN RELEASE ONLY FOR TESTING
+            //-------------------------------------------DELETE (&& data.email != "asdf@sdf.aa") IN RELEASE ONLY FOR TESTING
+            //-------------------------------------------DELETE (&& data.email != "asdf@sdf.aa") IN RELEASE ONLY FOR TESTING
+            List<Claim> claims = new List<Claim>() {
+                new Claim(ClaimTypes.Name, userName),
+                new Claim(ClaimTypes.Email, data.email),
+                new Claim(ClaimTypes.Authentication, id)
+            };
+            ClaimsIdentity ci = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(ci);
+            await HttpContext.SignInAsync(claimsPrincipal);
             return RedirectToAction("Index","Home");
         }
-        public IActionResult DeAuthorization() {
-            HttpContext.Response.Cookies.Delete("token");
+        public async Task<IActionResult> DeAuthorization() {
+            await HttpContext.SignOutAsync();
             return RedirectToAction("Index","Home");
         }
         public IActionResult Register() {
