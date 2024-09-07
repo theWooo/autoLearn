@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Net.Http.Headers;
-
+using System.Diagnostics;
 namespace diplom.Controllers {
     public class CourseController : Controller {
         [Authorize]
@@ -37,9 +37,12 @@ namespace diplom.Controllers {
         [HttpPost]
         public async Task<IActionResult> CreateCourse(CourseDataDTO data) {
             if (!ModelState.IsValid) { return View(); }
-            
             await DI.getDiContainer().asyncExecuteNonQuery($"insert into course(coursename,courseImage,courseDescription,creatorIdFK) values ('{data.courseHeaderData.courseName}','{$"data:image/gif;base64,{DI.getDiContainer().getImageData(data.courseHeaderData.courseImageData)}"}','{data.courseHeaderData.courseDescription}',{HttpContext.User.Claims.First(it=>it.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/authentication").Value})");
+
             return RedirectToAction("CourseWorkshop", "Course");
+        }
+        private void vreateChunk() { 
+        
         }
         [Authorize]
         [HttpPost]

@@ -16,7 +16,7 @@ namespace diplom.Controllers
 
         public async Task<IActionResult> Index()
         {
-            DI.getDiContainer("C:\\Users\\xbox0\\Desktop\\diplom\\autoLearn\\connectionString.txt");
+            DI.getDiContainer("~/../connectionString.txt");
             return View();
         }
         public IActionResult Privacy()
