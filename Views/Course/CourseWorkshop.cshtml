@@ -24,6 +24,7 @@
                         }
                         </div>
                     <label>@course.courseDescription</label>
+                    <a asp-controller="Course" asp-action="DeleteCourse" asp-route-id="@course.courseId">Delete course</a>
                 </div>
             }
         }

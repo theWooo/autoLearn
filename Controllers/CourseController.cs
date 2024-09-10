@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace diplom.Controllers {
     public class CourseController : Controller {
         [Authorize]
@@ -24,6 +25,12 @@ namespace diplom.Controllers {
                 batch.courses.Add(new Course { courseDescription=reader.GetValue(1) as string, courseImageLink=(reader.GetValue(2)) as string, courseName = reader.GetValue(0) as string,courseId = (int)reader.GetValue(3),courseImageDataString = reader.GetValue(4) as string });
             }
             return View(batch);
+        }
+        [Authorize]
+        public async Task<IActionResult> DeleteCourse(int id) {
+            DI.getDiContainer().asyncExecuteNonQuery($"delete from course where course.id = {id}");
+            DI.getDiContainer().asyncExecuteNonQuery($"delete from chunk where courceFK = {id}");
+            return RedirectToAction("CourseWorkshop", "Course");
         }
         public IActionResult CreateCourse() {
             return View();
