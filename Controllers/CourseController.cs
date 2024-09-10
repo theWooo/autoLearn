@@ -10,9 +10,9 @@ namespace diplom.Controllers {
         public async Task<IActionResult> Index() {
             string email = HttpContext.User.Claims.First(it => it.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value;
             CourseBatchDTO batch = new CourseBatchDTO();
-            SqlDataReader reader = await DI.getDiContainer().asyncExecuteReader(@$"select coursename, courseDescription,courseImageLink from course join coursetooperator on courseidfk = course.id join operator on operatoridfk = operator.id join auth on auth.id = operator.authfk where email = '{email}'");
+            SqlDataReader reader = await DI.getDiContainer().asyncExecuteReader(@$"select coursename, courseDescription,courseImageLink, course.id from course join coursetooperator on courseidfk = course.id join operator on operatoridfk = operator.id join auth on auth.id = operator.authfk where email = '{email}'");
             while (reader.Read()) {
-                batch.courses.Add(new Course() { courseDescription = reader.GetValue(1) as string, courseName = reader.GetValue(0) as string,courseImageLink = reader.GetValue(2) as string});
+                batch.courses.Add(new Course() { courseDescription = reader.GetValue(1) as string, courseName = reader.GetValue(0) as string,courseImageLink = reader.GetValue(2) as string, courseId = int.Parse(reader.GetValue(3) as string)});
             }
             return View(batch);
         }
@@ -30,10 +30,10 @@ namespace diplom.Controllers {
         }
         [Authorize]
         public async Task<IActionResult> ViewSelectedCourse() {
-            SqlDataReader courseDataReader = await DI.getDiContainer().asyncExecuteReader($"select course.courseName, course.courseDescription, chunk.chunkData\r\nfrom course join chunk on chunk.courceFK = course.id\r\nwhere course.courseName = '{Request.QueryString.ToString().Split("=").Last().Replace("%20"," ")}'");
+            SqlDataReader courseDataReader = await DI.getDiContainer().asyncExecuteReader($"select course.courseName, course.courseDescription, chunk.chunkData from course join chunk on chunk.courceFK = course.id where course.id = '{int.Parse(Request.QueryString.ToString().Split("=").Last())}'");
             await courseDataReader.ReadAsync();
             var a = courseDataReader.GetValue(0);
-            return View(new CourseViewTransferDTO() {courseName=courseDataReader.GetValue(0) as string,courseContents=courseDataReader.GetValue(1) as string,courseDescription = courseDataReader.GetValue(2) as string});
+            return View(new CourseViewTransferDTO() {courseName=courseDataReader.GetValue(0) as string, courseDescription = courseDataReader.GetValue(1) as string,courseContents = courseDataReader.GetValue(2) as string});
         }
         [Authorize]
         [HttpPost]
