@@ -16,7 +16,7 @@ namespace diplom.Controllers
 
         public async Task<IActionResult> Index()
         {
-            DI.getDiContainer("~/../connectionString.txt");
+            DI.getDiContainer("~/../connectionstring");
             return View();
         }
         public IActionResult Privacy()

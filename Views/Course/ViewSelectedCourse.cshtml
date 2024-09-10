@@ -1,0 +1,23 @@
+﻿@model CourseViewTransferDTO
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="~/css/ViewSelectedCourse.css" media="all" />
+    <meta charset="UTF-8">
+</head>
+<body>
+    <div class="courseViewContainer">
+        <label id="name">
+            @Model.courseName
+        </label>
+        <label id="description">
+            @Model.courseDescription
+        </label>
+    </div>
+    <textarea id="content">
+        @Model.courseContents
+    </textarea>
+</body>
+</html>
