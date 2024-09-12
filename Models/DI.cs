@@ -47,7 +47,6 @@ namespace diplom.Models {
         public static DI getDiContainer(string pathToFileContainingConnectionString = "") {
             if (container == null) {
                 container = new DI(pathToFileContainingConnectionString);
-                //container.decryptKey = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("AppSettings")["tokenDecryptionKey"];
                 return container;
             }
             else {
