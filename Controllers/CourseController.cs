@@ -28,6 +28,7 @@ namespace diplom.Controllers {
         }
         [Authorize]
         public async Task<IActionResult> DeleteCourse(int id) {
+            DI.getDiContainer().asyncExecuteNonQuery($"delete courseToOperator where courseToOperator.courseIdFK = {id}");
             DI.getDiContainer().asyncExecuteNonQuery($"delete from course where course.id = {id}");
             DI.getDiContainer().asyncExecuteNonQuery($"delete from chunk where courceFK = {id}");
             return RedirectToAction("CourseWorkshop", "Course");
