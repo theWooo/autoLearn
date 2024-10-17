@@ -1,4 +1,4 @@
-﻿@model CourseViewTransferDTO
+﻿@model CourseDataDTO
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,20 +8,22 @@
     <meta charset="UTF-8">
 </head>
 <body>
+    
     <div class="courseFormContainer">
-        <form asp-controller="Course" asp-action="RedactCourse" method="post" enctype="multipart/form-data">
+        <form asp-controller="Course" asp-action="createCourse" method="post" enctype="multipart/form-data">
             <div class="courseDataHeader">
-                <textarea asp-for="courseName" type="text" class="courseNameTextarea" placeholder="Название курса" required><@Model.courseDescription</textarea>
-                <textarea asp-for="courseDescription" class="courseDescriptionTextarea" placeholder="Описание курса">@Model.courseName</textarea>
-                <input type="submit" name="sub" value="Применить" />
+                <input asp-for="courseHeaderData.courseImageData" type="file" id="pictureSelectInput" accept="image/png, image/jpeg" required />
+                <textarea asp-for="courseHeaderData.courseName" type="text" class="courseNameTextarea" placeholder="Название курса" required></textarea>
+                <textarea asp-for=courseHeaderData.courseDescription class="courseDescriptionTextarea" placeholder="Описание курса"></textarea>
+                <input type="submit" name="sub" value="Применить"/>
             </div>
             @Html.ValidationSummary()
             <div class="editorContainer">
                 <div id="container">
-                    <textarea name="content" id="editor">@Model.courseContents</textarea>
+                    <textarea name="content" id="editor"></textarea>
                 </div>
             </div>
-            <textarea name="courseId" style="display:none">@Context.Request.QueryString.Value.ToString().Split('=')[1]</textarea>
+            
         </form>
     </div>
     <script>

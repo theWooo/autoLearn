@@ -8,17 +8,17 @@
     <meta charset="UTF-8">
 </head>
 <body>
-    <div class="courseViewContainer">
-        <label id="name">
-            @Model.courseName
-        </label>
-        <label id="description">
-            @Model.courseDescription
-        </label>
-    </div>
-    <textarea id="editor">
-        @Model.courseContents
-    </textarea>
+        <div class="courseViewContainer">
+            <textarea id="name" >
+                @Model.courseName
+            </textarea>
+            <textarea id="description">
+                @Model.courseDescription
+            </textarea>
+        </div>
+        <textarea id="editor" >
+            @Model.courseContents
+        </textarea>
     <script>
         function allowDrop(ev) {
             ev.preventDefault();

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System.Data;
 namespace diplom.Controllers {
     public class CourseController : Controller {
         [Authorize]
@@ -28,15 +29,19 @@ namespace diplom.Controllers {
         }
         [Authorize]
         public async Task<IActionResult> DeleteCourse(int id) {
-            await DI.getDiContainer().asyncExecuteNonQuery($"delete courseToOperator where courseToOperator.courseIdFK = {id}");
-            await DI.getDiContainer().asyncExecuteNonQuery($"delete from chunk where courceFK = {id}");
-            await DI.getDiContainer().asyncExecuteNonQuery($"delete from course where course.id = {id}");
+            int holder = -1;
+            SqlDataReader reader = await DI.getDiContainer().asyncExecuteReader($"select operatorIdFk from courseToOperator where courseIdFk = {id}");
+            await reader.ReadAsync();
+            int.TryParse(reader.GetValue(0).ToString(), out holder);
+            if (int.Parse(HttpContext.User.Claims.First(it => it.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/authentication").Value) == holder) {
+                await DI.getDiContainer().asyncExecuteNonQuery($"delete courseToOperator where courseToOperator.courseIdFK = {id}");
+                await DI.getDiContainer().asyncExecuteNonQuery($"delete from chunk where courceFK = {id}");
+                await DI.getDiContainer().asyncExecuteNonQuery($"delete from course where course.id = {id}");
+            }
             return RedirectToAction("CourseWorkshop", "Course");
         }
-        [Authorize]
-        public IActionResult RedactCourse() {
-            return View();
-        } 
+        
+        
         public IActionResult CreateCourse() {
             return View();
         }
@@ -44,8 +49,23 @@ namespace diplom.Controllers {
         public async Task<IActionResult> ViewSelectedCourse() {
             SqlDataReader courseDataReader = await DI.getDiContainer().asyncExecuteReader($"select course.courseName, course.courseDescription, chunk.chunkData from course join chunk on chunk.courceFK = course.id where course.id = '{int.Parse(Request.QueryString.ToString().Split("=").Last())}'");
             await courseDataReader.ReadAsync();
-            var a = courseDataReader.GetValue(0);
             return View(new CourseViewTransferDTO() {courseName=courseDataReader.GetValue(0) as string, courseDescription = courseDataReader.GetValue(1) as string,courseContents = courseDataReader.GetValue(2) as string});
+        }
+        [Authorize]
+        [HttpPost]
+        public async Task<IActionResult> RedactCourse(CourseViewTransferDTO data) {
+            await DI.getDiContainer().asyncExecuteNonQuery($"update course set coursename = '{data.courseName}', courseDescription = '{data.courseDescription}'  where id = '{Request.Form["courseId"]}'");
+            await DI.getDiContainer().asyncExecuteNonQuery($"update chunk set chunkData = '{Request.Form["content"]}' where courceFK = {Request.Form["courseId"]}");
+            Debug.WriteLine(Request.Form["content"]);//Request.QueryString.Value);
+            return RedirectToAction("Index", "Course");
+        }
+
+        [Authorize]
+        public async Task<IActionResult> RedactCourse() {
+            SqlDataReader courseDataReader = await DI.getDiContainer().asyncExecuteReader($"select course.courseName, course.courseDescription, chunk.chunkData from course join chunk on chunk.courceFK = course.id where course.id = '{int.Parse(Request.QueryString.ToString().Split("=").Last())}'");
+            await courseDataReader.ReadAsync();
+            var a = courseDataReader.GetValue(2);
+            return View(new CourseViewTransferDTO() { courseName = courseDataReader.GetValue(0) as string, courseDescription = courseDataReader.GetValue(1) as string, courseContents = courseDataReader.GetValue(2) as string });
         }
         [Authorize]
         [HttpPost]
